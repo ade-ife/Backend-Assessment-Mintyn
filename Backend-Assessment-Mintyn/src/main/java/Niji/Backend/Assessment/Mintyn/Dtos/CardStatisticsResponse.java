@@ -16,4 +16,7 @@ public class CardStatisticsResponse extends ResponseObject {
     private int limit;
     private Map<String, Integer> data;
     private boolean success;
+
+
+
 }

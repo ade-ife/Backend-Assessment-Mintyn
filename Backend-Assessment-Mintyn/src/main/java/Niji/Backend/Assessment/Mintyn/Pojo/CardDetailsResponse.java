@@ -16,3 +16,5 @@ public class CardDetailsResponse {
     private Map<String, Integer> payload;
     private boolean success;
 }
+
+

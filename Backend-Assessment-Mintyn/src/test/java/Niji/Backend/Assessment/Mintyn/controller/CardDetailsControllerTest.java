@@ -1,6 +1,8 @@
 package Niji.Backend.Assessment.Mintyn.controller;
 
 import Niji.Backend.Assessment.Mintyn.Controller.CardDetailsController;
+import Niji.Backend.Assessment.Mintyn.Dtos.CardStatisticsResponse;
+import Niji.Backend.Assessment.Mintyn.Pojo.CardDetailsResponse;
 import Niji.Backend.Assessment.Mintyn.Pojo.SchemeVerificationModel;
 import Niji.Backend.Assessment.Mintyn.Service.CardDetailsService;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,10 +15,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
+
 import java.util.Map;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CardDetailsControllerTest {
@@ -35,8 +38,11 @@ public class CardDetailsControllerTest {
         webTestClient = WebTestClient.bindToController(cardController).build();
     }
 
+
+
+
     @Test
-    void verifyCardScheme_WithValidBin_ShouldReturnCardInfo() {
+    void verifyCardWithValidBin() {
         SchemeVerificationModel model = new SchemeVerificationModel("debit", "Jyske Bank A/S", "visa");
         when(cardService.validateCard(any())).thenReturn(Mono.just(model));
 
@@ -52,7 +58,7 @@ public class CardDetailsControllerTest {
     }
 
     @Test
-    void verifyCardScheme_WithInvalidBin_ShouldReturnErrorMessage() {
+    void verifyCardWithInvalidBin() {
         when(cardService.validateCard(any())).thenReturn(Mono.empty());
 
         webTestClient.get().uri("/v1/api/card-scheme/verify/87651275")
@@ -65,31 +71,24 @@ public class CardDetailsControllerTest {
     }
 
 
+
+//
 //    @Test
-//    void getStats_ShouldReturnCardStatistics() {
-//        int start = 0;
-//        int limit = 10;
-//        Map<String, Integer> expectedPayload = Map.of(
-//                "45397912", 6,
-//                "49218184", 1,
-//                "42639826", 4,
-//                "45717360", 1
+//    public void getCardStats_withDefaults_returnsExpectedResponse() {
+//        // Mock cardDetailsService to return expected response
+//        CardStatisticsResponse expectedResponse = new CardStatisticsResponse(
+//                50L, 0, 10, Map.of("visa", 25, "mastercard", 25), true
 //        );
-//        CardStatsResponse mockResponse = new CardStatsResponse(true, start, limit, 4, expectedPayload);
+//        when(cardService.getCardStatistics(0, 10)).thenReturn(expectedResponse);
 //
-//        when(cardService.getCardStats(start, limit)).thenReturn(mockResponse);
+//        // Call the endpoint
+//        MockHttpServletResponse response = mockMvc.perform(get("/stats"))
+//                .andExpect(status().isOk())
+//                .andReturn().getResponse();
 //
-//        webTestClient.get().uri("/v1/api/card-scheme/stats", start, limit)
-//                .exchange()
-//                .expectStatus().isOk()
-//                .expectBody()
-//                .jsonPath("$.success").isEqualTo(true)
-//                .jsonPath("$.start").isEqualTo(start)
-//                .jsonPath("$.limit").isEqualTo(limit)
-//                .jsonPath("$.size").isEqualTo(4)
-//                .jsonPath("$.payload.45397912").isEqualTo(6)
-//                .jsonPath("$.payload.49218184").isEqualTo(1)
-//                .jsonPath("$.payload.42639826").isEqualTo(4)
-//                .jsonPath("$.payload.45717360").isEqualTo(1);
+//        // Assert response content
+//        CardStatisticsResponse actualResponse = objectMapper.readValue(response.getContentAsString(), CardStatisticsResponse.class);
+//        assertEquals(expectedResponse, actualResponse);
 //    }
+
 }

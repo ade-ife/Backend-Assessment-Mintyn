@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
 
@@ -39,6 +40,32 @@ public class CardDetailsControllerTest {
     }
 
 
+
+    @Test
+    void getCardStats_ShouldReturnCardStatistics() {
+        // Given
+        int start = 0;
+        int limit = 10;
+        Map<String, Integer> expectedData = Map.of(
+                "42639826", 1,
+                "45717360", 7
+        );
+        CardStatisticsResponse expectedResponse = new CardStatisticsResponse(2, start, limit, expectedData, true);
+
+        when(cardService.getCardStatistics(start, limit)).thenReturn(expectedResponse);
+
+        // When and Then
+        webTestClient.get().uri("/v1/api/card-scheme/stats?start={start}&limit={limit}", start, limit)
+                .exchange()
+                .expectStatus().isOk()
+                .expectBody()
+                .jsonPath("$.success").isEqualTo(true)
+                .jsonPath("$.start").isEqualTo(start)
+                .jsonPath("$.limit").isEqualTo(limit)
+                .jsonPath("$.size").isEqualTo(2)
+                .jsonPath("$.data.42639826").isEqualTo(1)
+                .jsonPath("$.data.45717360").isEqualTo(7);
+    }
 
 
     @Test
@@ -72,23 +99,6 @@ public class CardDetailsControllerTest {
 
 
 
-//
-//    @Test
-//    public void getCardStats_withDefaults_returnsExpectedResponse() {
-//        // Mock cardDetailsService to return expected response
-//        CardStatisticsResponse expectedResponse = new CardStatisticsResponse(
-//                50L, 0, 10, Map.of("visa", 25, "mastercard", 25), true
-//        );
-//        when(cardService.getCardStatistics(0, 10)).thenReturn(expectedResponse);
-//
-//        // Call the endpoint
-//        MockHttpServletResponse response = mockMvc.perform(get("/stats"))
-//                .andExpect(status().isOk())
-//                .andReturn().getResponse();
-//
-//        // Assert response content
-//        CardStatisticsResponse actualResponse = objectMapper.readValue(response.getContentAsString(), CardStatisticsResponse.class);
-//        assertEquals(expectedResponse, actualResponse);
-//    }
+
 
 }

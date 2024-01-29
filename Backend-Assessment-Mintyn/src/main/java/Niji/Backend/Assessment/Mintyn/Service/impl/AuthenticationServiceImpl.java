@@ -30,6 +30,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final TokenAuthenticationService tokenService;
 
+
     @Override
     public SignupResponse signUp(SignupDto signupDto) {
         SignupResponse response = new SignupResponse();

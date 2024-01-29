@@ -116,8 +116,6 @@ public class AuthenticationControllerTest {
         String token = jwtGenerator.generateToken(testUser);
         expectedResponse.setToken(token);
 
-
-
         expectedResponse.setExpiryDate(LocalDateTime.parse("2024-01-29T00:14:29.683"));
 
 

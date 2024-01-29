@@ -34,9 +34,6 @@ public class CacheManager {
         log.info("Cached value for key: {}", key);
     }
 
-//    public Map<String, Object> getAllCacheEntries() {
-//        return caffeineCache.asMap();
-//    }
-//
+
 
 }

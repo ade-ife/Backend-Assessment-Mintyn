@@ -50,7 +50,7 @@ public class CardDetailsServiceImpl implements CardDetailsService {
         response.setData(data);
         response.setResponseCode("00");
         response.setResponseDescription(EnumResponseCodes.SUCCESS.toString());
-        response.setResponseDescription("CARD STATISTICS FETCHED SUCCESSFULLY");
+        response.setDescription("CARD STATISTICS FETCHED SUCCESSFULLY");
 
         return response;
     }

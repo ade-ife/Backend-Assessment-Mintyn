@@ -13,5 +13,5 @@ public class VerifyCardDetailsDto {
 
     @NotEmpty(message = "bin is required")
     private String bin;
-    private String provider;
+
 }

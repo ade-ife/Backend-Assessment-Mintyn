@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
+@Slf4j
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserEntityRepository userRepository;
@@ -67,6 +67,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         UserEntity user = getUser(loginDto.getUsername());
        if(verifyPassword(loginDto.getPassword(), user.getPassword(),user)  == false)
+
         {
             response.setResponseCode("96");
             response.setResponseDescription(EnumResponseCodes.FAILED.toString());
@@ -76,7 +77,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         userRepository.save(user);
 
-        TokenEntity token = tokenService.generatorToken(user);
+        TokenEntity token = tokenService.generateToken(user);
 
         response.setResponseCode("00");
         response.setResponseDescription(EnumResponseCodes.SUCCESS.toString());

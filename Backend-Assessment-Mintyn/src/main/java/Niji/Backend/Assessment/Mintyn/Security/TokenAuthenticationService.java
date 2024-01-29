@@ -37,7 +37,7 @@ public class TokenAuthenticationService {
         this.expiration = expiration;
     }
 
-    public TokenEntity generatorToken(UserEntity user) {
+    public TokenEntity generateToken(UserEntity user) {
         final String token = jwtGenerator.generateToken( user);
          return tokenStoreRepository.save(new TokenEntity(token, getExpiryDate()));
     }

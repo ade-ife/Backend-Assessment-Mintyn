@@ -17,21 +17,23 @@ import javax.validation.Valid;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
-@RestController
 @RequestMapping(value = "v1/api/authentication", produces = APPLICATION_JSON_VALUE)
+@RestController
 public class AuthenticationController {
 
-    @Autowired
-    AuthenticationService authService;
+    private final AuthenticationService authenticationService;
 
+    public AuthenticationController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
     @PostMapping("/signup")
     public SignupResponse signUp(@Valid @RequestBody SignupDto signupDto) {
-        return authService.signUp(signupDto);
+        return authenticationService.signUp(signupDto);
     }
 
     @PostMapping("/login")
     public LoginResponse login(@Valid @RequestBody LoginDto loginDto) {
-        return authService.login(loginDto);
+        return authenticationService.login(loginDto);
     }
 
 }

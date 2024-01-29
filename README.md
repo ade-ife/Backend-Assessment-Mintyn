@@ -8,6 +8,7 @@ This project contains a Card Information Service. The primary goal is to provide
 - Validity Status: Check whether the card is currently valid or not
 - Card Scheme: Identify the card scheme, whether it's VISA, MASTERCARD, AMEX, or any other major card scheme.
 - Bank Information: Discover the associated bank when available.
+- 100% test coverage for all Controllers and Services.
 
 ## Software Design Patterns and Principles
 
@@ -16,7 +17,7 @@ This Project adheres to robust design patterns and principles, ensuring scalabil
 - Dependency Injection.
 - Single Responsibility Principle. 
 - Open/Closed Principle.
-- Reactive Programming:
+- Reactive Programming.
 
 
 ## Getting Started
@@ -35,7 +36,7 @@ These instructions will get you a copy of the project up and running on your loc
 Clone the repository:
 
 ```bash
-git clone [repository_url]
+git clone https://github.com/ade-ife/Backend-Assessment-Mintyn
 ```
 
 Navigate to the project folder 
